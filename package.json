@@ -1,0 +1,24 @@
+{
+  "name": "custommailers",
+  "version": "1.0.0",
+  "description": "Client-side builder for print-ready letter-size political campaign mailers.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "prepare:knowledge": "node scripts/sync-knowledge.mjs",
+    "prepare:qr": "node scripts/generate-qr.mjs",
+    "build:css": "sass scss/main.scss css/main.css --style=compressed --no-source-map",
+    "build": "npm run prepare:knowledge && npm run prepare:qr && npm run build:css && node scripts/build.mjs",
+    "watch:css": "sass --watch scss/main.scss css/main.css --style=expanded",
+    "serve": "python -m http.server 8080",
+    "dev": "npm run watch:css",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "qrcode": "^1.5.4",
+    "sass": "^1.104.1"
+  }
+}

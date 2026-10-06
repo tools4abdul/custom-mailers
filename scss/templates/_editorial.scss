@@ -1,0 +1,38 @@
+@use '../abstracts/branding' as b;
+
+.editorial {
+  display: grid;
+  grid-template-rows: .82in 2.7in 1fr 1.25in;
+  height: 100%;
+  color: var(--mailer-ink);
+  background: var(--mailer-surface);
+  font-family: var(--brand-font-body);
+}
+
+.editorial__header { display: flex; align-items: center; padding: .2in b.$mailer-margin; background: var(--mailer-header-bg); }
+.editorial__logo { width: 100%; max-height: .42in; object-fit: contain; object-position: left center; }
+.editorial__hero { overflow: hidden; background: var(--mailer-header-accent); }
+.editorial__hero-image { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+.editorial__body { display: grid; grid-template-columns: repeat(2, 1fr); gap: .28in; padding: .22in b.$mailer-margin; overflow: hidden; }
+.editorial__issue { min-width: 0; }
+.editorial__issue + .editorial__issue { border-left: 1pt solid var(--mailer-rule); padding-left: .28in; }
+.editorial__issue-eyebrow { font-size: 7pt; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--mailer-accent); }
+.editorial__issue-title { margin-top: .04in; font-family: var(--brand-font-display); font-size: 19pt; font-weight: 900; line-height: .97; color: var(--mailer-heading); }
+.editorial__issue-summary { margin-top: .08in; font-size: 8pt; line-height: 1.3; }
+.editorial__points { display: grid; gap: .06in; margin-top: .09in; padding-left: .16in; font-size: 7.25pt; line-height: 1.25; }
+.editorial__points li::marker { color: var(--mailer-accent); }
+.editorial__footer { display: flex; align-items: center; gap: .2in; padding: .15in b.$mailer-margin; background: var(--mailer-footer-bg); color: var(--mailer-footer-ink); }
+.editorial__qr { display: flex; flex-direction: column; align-items: center; gap: .04in; }
+.editorial__qr .mailer__qr { box-sizing: content-box; padding: .04in; background: white; }
+.editorial__qr-caption { max-width: 1.3in; font-size: 6.5pt; font-weight: 700; line-height: 1.1; text-align: center; text-transform: uppercase; }
+.editorial__endorsement { display: grid; grid-template-columns: 1fr .72in; column-gap: .13in; align-items: center; min-width: 0; }
+.editorial__blurb { font-size: 8.5pt; font-style: italic; line-height: 1.2; }
+.editorial__name { display: block; margin-top: .05in; font-size: 7pt; font-style: normal; font-weight: 700; text-transform: uppercase; }
+.editorial__supporter { grid-column: 2; grid-row: 1 / span 2; width: .68in; height: .68in; overflow: hidden; border-radius: 50%; border: 2pt solid var(--mailer-footer-accent); }
+.editorial__supporter-image { width: 100%; height: 100%; object-fit: cover; }
+
+.rally .banner__header { min-height: 2.65in; background: var(--mailer-header-accent); }
+.rally .banner__positions { padding-top: .28in; }
+.rally .banner__position-title { font-size: 22pt; }
+.rally .banner__position-summary { font-size: 9pt; }
+.rally .banner__point-text { font-size: 8.5pt; }

@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Sass
+.sass-cache/
+*.css.map
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+
+# Logs
+npm-debug.log*
+*.log
+
+# Env files
+.env
+.env.local
+
+# Rebuilt from the authoritative tools4abdul/cliposition knowledge library.
+js/data/knowledge.generated.js
+assets/generated/
+dist/
+.qa-pages/
+.gstack/
