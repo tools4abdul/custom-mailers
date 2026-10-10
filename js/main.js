@@ -51,6 +51,7 @@ function boot() {
   const contentFormNode = region('content-form');
   const mailerNode = region('mailer');
   const overflowNode = region('overflow-warning');
+  const previewNoteNode = document.querySelector('.preview__note');
   const previewNode = document.querySelector('.preview');
   const stageNode = region('preview-stage');
 
@@ -104,6 +105,10 @@ function boot() {
     }
 
     renderMailer(mailerNode, content);
+    previewNoteNode.textContent =
+      content.templateId === 'postcard'
+        ? 'Shown as two true-size postcard sides (6in × 4in each).'
+        : template?.previewLabel ?? 'Shown at true letter size (8.5in × 11in).';
 
     const isOverflowing = findOverflow(mailerNode);
     mailerNode.classList.toggle('mailer--overflowing', isOverflowing);

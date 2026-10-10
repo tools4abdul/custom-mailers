@@ -24,6 +24,35 @@ export function renderMailer(mailerNode, content) {
   mailerNode.className = `mailer mailer--${template.id}`;
   mailerNode.dataset.colorway = colorway === null ? '' : colorway.id;
   replace(mailerNode, template.render(content, colorway));
+  fitMessageText(mailerNode);
+}
+
+function fitMessageText(mailerNode) {
+  const container = mailerNode.querySelector('[data-auto-fit-container]');
+  const message = mailerNode.querySelector('[data-auto-fit-text]');
+  if (container === null || message === null) {
+    return;
+  }
+
+  const min = 10;
+  const max = 20;
+  const step = 0.25;
+  let best = min;
+  message.style.setProperty('--mailer-message-size', `${min}pt`);
+
+  for (let size = min + step; size <= max; size += step) {
+    message.style.setProperty('--mailer-message-size', `${size}pt`);
+    const positions = container.querySelector('[data-overflow-guard]');
+    if (
+      container.scrollHeight - container.clientHeight > 1 ||
+      (positions !== null && positions.scrollHeight - positions.clientHeight > 1)
+    ) {
+      break;
+    }
+    best = size;
+  }
+
+  message.style.setProperty('--mailer-message-size', `${best}pt`);
 }
 
 export function findOverflow(mailerNode) {

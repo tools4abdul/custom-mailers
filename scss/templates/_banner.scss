@@ -1,13 +1,13 @@
 @use '../abstracts/branding' as b;
 
-$banner-header-height: 2.2in;
-$banner-footer-height: 2.1in;
+$banner-header-height: 1.8in;
+$banner-footer-height: 1.9in;
 $banner-portrait-size: 1.6in;
 $banner-supporter-photo: 1.25in;
 
 .banner {
   display: grid;
-  grid-template-rows: $banner-header-height 1fr $banner-footer-height;
+  grid-template-rows: $banner-header-height minmax(0, 1fr) $banner-footer-height;
   height: 100%;
   background: var(--mailer-surface);
   color: var(--mailer-ink);
@@ -59,11 +59,44 @@ $banner-supporter-photo: 1.25in;
   color: var(--mailer-ink);
 }
 
-.banner__positions {
+.banner__body {
   display: flex;
   flex-direction: column;
-  padding: 0.24in b.$mailer-margin 0.2in;
+  min-height: 0;
+  padding: 0.22in b.$mailer-margin 0.18in;
   overflow: hidden;
+}
+
+.banner__introduction {
+  flex: 0 0 auto;
+  padding-bottom: 0.14in;
+  border-bottom: 1pt solid var(--mailer-rule);
+}
+
+.banner__message {
+  font-size: clamp(10pt, var(--mailer-message-size, 12pt), 20pt);
+  font-weight: b.$weight-body-medium;
+  line-height: 1.2;
+  color: var(--mailer-heading);
+}
+
+.banner__positions {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+  padding-top: 0.13in;
+  overflow: hidden;
+}
+
+.banner__priorities-title {
+  flex: 0 0 auto;
+  font-family: var(--brand-font-display);
+  font-size: 18pt;
+  font-weight: b.$weight-display-black;
+  line-height: 1;
+  letter-spacing: b.$tracking-headline;
+  color: var(--mailer-heading);
 }
 
 .banner__position-list {
@@ -71,7 +104,8 @@ $banner-supporter-photo: 1.25in;
   flex: 1;
   flex-direction: column;
   justify-content: flex-start;
-  gap: 0.12in;
+  gap: 0.09in;
+  margin-top: 0.11in;
   min-height: 0;
   overflow: hidden;
 }

@@ -15,6 +15,10 @@ export function setCandidatePhotoId(content, photoId) {
   return { ...content, candidate: { ...content.candidate, photoId } };
 }
 
+export function setIntroField(content, field, value) {
+  return { ...content, intro: { ...content.intro, [field]: value } };
+}
+
 export function setSupporterField(content, field, value) {
   return { ...content, supporter: { ...content.supporter, [field]: value } };
 }

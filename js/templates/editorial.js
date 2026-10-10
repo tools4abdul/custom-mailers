@@ -25,7 +25,7 @@ export const editorialTemplate = {
   slots: {
     candidatePhoto: { source: 'gallery', label: 'Candidate photo', hint: 'A tall portrait works best.' },
     positions: { min: 1, max: 2, label: 'Positions', points: { max: 4 } },
-    supporter: { optional: true, label: 'Your endorsement', photo: { aspectRatio: 1, exportWidth: 420, label: 'Your photo' }, name: { maxChars: 30, label: 'Your name' }, blurb: { maxChars: 140, label: 'Why you support Abdul', placeholder: 'Share why you are backing Abdul.' } },
+    supporter: { optional: true, label: 'Your endorsement', photo: { aspectRatio: 1, exportWidth: 420, label: 'Your photo' }, name: { maxChars: 30, label: 'Your name' }, blurb: { maxChars: 300, label: 'Why you support Abdul', placeholder: 'Share why you are backing Abdul.' } },
     qr: { scale: 1, caption: 'Scan for voting information' },
   },
   colorways: [

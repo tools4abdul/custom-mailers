@@ -6,6 +6,16 @@
   margin: 0;
 }
 
+@page letter {
+  size: p.$page-width p.$page-height;
+  margin: 0;
+}
+
+@page postcard {
+  size: 6in 4in;
+  margin: 0;
+}
+
 @media print {
   html,
   body {
@@ -60,6 +70,7 @@
     page-break-inside: avoid;
     break-after: avoid;
     page-break-after: avoid;
+    page: letter;
   }
 
   .mailer *,

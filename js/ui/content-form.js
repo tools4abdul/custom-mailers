@@ -3,7 +3,7 @@ import { createTextField, createCheckboxField, createFieldset } from './fields.j
 import { createPhotoInput } from './photo-input.js';
 import { createPhotoGallery } from './photo-gallery.js';
 import { createPositionsEditor } from './positions-editor.js';
-import { setCandidatePhotoId, setSupporterField } from '../state/updates.js';
+import { setCandidatePhotoId, setIntroField, setSupporterField } from '../state/updates.js';
 
 function candidateFieldset(store, slot) {
   return createFieldset('Abdul El-Sayed', [
@@ -69,6 +69,20 @@ function supporterFieldset(store, slot) {
   ]);
 }
 
+function introFieldset(store, slot) {
+  const content = store.getState();
+  return createFieldset(slot.label, [
+    createTextField({
+      id: 'intro-message',
+      label: 'Message',
+      value: content.intro.message,
+      maxChars: slot.message.maxChars,
+      multiline: true,
+      onInput: (value) => store.setState((current) => setIntroField(current, 'message', value)),
+    }),
+  ]);
+}
+
 export function renderContentForm(node, template, store) {
   if (template === null) {
     replace(node, el('p', { class: 'control-panel__empty', text: 'Choose a layout first.' }));
@@ -80,6 +94,10 @@ export function renderContentForm(node, template, store) {
 
   if (slots.candidatePhoto !== undefined) {
     sections.push(candidateFieldset(store, slots.candidatePhoto));
+  }
+
+  if (slots.intro !== undefined) {
+    sections.push(introFieldset(store, slots.intro));
   }
 
   if (slots.positions !== undefined) {

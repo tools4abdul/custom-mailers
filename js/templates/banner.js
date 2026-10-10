@@ -69,11 +69,22 @@ function renderPosition(position) {
 
 function renderPositions(content, slots) {
   return el('section', { class: 'banner__positions' }, [
+    el('h2', { class: 'banner__priorities-title', text: 'My Reasons for Supporting Abdul' }),
     el(
       'ol',
       { class: 'banner__position-list', 'data-overflow-guard': true },
       content.positions.slice(0, slots.positions.max).map(renderPosition)
     ),
+  ]);
+}
+
+function renderIntroduction(content) {
+  return el('section', { class: 'banner__introduction' }, [
+    el('p', {
+      class: 'banner__message',
+      text: content.intro.message,
+      'data-auto-fit-text': true,
+    }),
   ]);
 }
 
@@ -96,13 +107,18 @@ function renderFooter(content, slots) {
 export const bannerTemplate = {
   id: 'banner',
   name: 'Banner',
-  description: 'Wide logo header with candidate portrait, four stacked positions, QR and endorsement footer.',
+  description: 'Wide logo header with an editable neighbor message, priorities, QR and endorsement footer.',
+  previewLabel: 'Shown at true letter size (8.5in × 11in).',
 
   slots: {
     candidatePhoto: {
       source: 'gallery',
       label: 'Candidate photo',
       hint: 'Every photo is cropped to a centred circle.',
+    },
+    intro: {
+      label: 'Message above your priorities',
+      message: { maxChars: 280 },
     },
     positions: {
       min: 1,
@@ -116,7 +132,7 @@ export const bannerTemplate = {
       photo: { aspectRatio: 1, exportWidth: 420, label: 'Your photo' },
       name: { maxChars: 30, label: 'Your name' },
       blurb: {
-        maxChars: 210,
+        maxChars: 300,
         label: 'Why you support Abdul',
         placeholder: 'Share why you are backing Abdul in a sentence or two.',
       },
@@ -191,7 +207,10 @@ export const bannerTemplate = {
     const { slots } = bannerTemplate;
     return el('div', { class: 'banner', style: colorwayStyle(colorway) }, [
       renderHeader(content, colorway),
-      renderPositions(content, slots),
+      el('main', { class: 'banner__body', 'data-auto-fit-container': true }, [
+        renderIntroduction(content),
+        renderPositions(content, slots),
+      ]),
       renderFooter(content, slots),
     ]);
   },
