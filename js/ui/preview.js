@@ -22,43 +22,53 @@ export function renderMailer(mailerNode, content) {
 
   const colorway = getColorway(template, content.colorwayId);
   mailerNode.className = `mailer mailer--${template.id}`;
+  mailerNode.classList.toggle('mailer--printer-safe', content.printSettings.safeMargin);
   mailerNode.dataset.colorway = colorway === null ? '' : colorway.id;
   replace(mailerNode, template.render(content, colorway));
-  fitMessageText(mailerNode);
+  fitMailerContent(mailerNode);
 }
 
-function fitMessageText(mailerNode) {
-  const container = mailerNode.querySelector('[data-auto-fit-container]');
-  const message = mailerNode.querySelector('[data-auto-fit-text]');
-  if (container === null || message === null) {
-    return;
-  }
-
-  const min = 10;
-  const max = 20;
-  const step = 0.25;
-  let best = min;
-  message.style.setProperty('--mailer-message-size', `${min}pt`);
-
-  for (let size = min + step; size <= max; size += step) {
-    message.style.setProperty('--mailer-message-size', `${size}pt`);
-    const positions = container.querySelector('[data-overflow-guard]');
-    if (
-      container.scrollHeight - container.clientHeight > 1 ||
-      (positions !== null && positions.scrollHeight - positions.clientHeight > 1)
-    ) {
-      break;
-    }
-    best = size;
-  }
-
-  message.style.setProperty('--mailer-message-size', `${best}pt`);
-}
-
-export function findOverflow(mailerNode) {
+function hasOverflow(mailerNode) {
   return [...mailerNode.querySelectorAll('[data-overflow-guard]')].some(
     (guard) => guard.scrollHeight - guard.clientHeight > 1
   );
+}
+
+function fitMailerContent(mailerNode) {
+  const container = mailerNode.querySelector('[data-content-fit]');
+  const message = mailerNode.querySelector('[data-auto-fit-text]');
+  if (container === null) {
+    return;
+  }
+
+  let bestContentScale = 0.65;
+  for (let scale = 0.65; scale <= 1.05; scale += 0.01) {
+    container.style.setProperty('--mailer-content-scale', String(scale));
+    if (hasOverflow(mailerNode)) {
+      break;
+    }
+    bestContentScale = scale;
+  }
+  container.style.setProperty('--mailer-content-scale', String(bestContentScale));
+
+  if (message === null) {
+    return;
+  }
+
+  let bestMessageSize = 10;
+  for (let size = 10; size <= 20; size += 0.25) {
+    message.style.setProperty('--mailer-message-size', `${size}pt`);
+    const introduction = message.closest('.banner__introduction');
+    if (introduction !== null && introduction.scrollHeight - introduction.clientHeight > 1) {
+      break;
+    }
+    bestMessageSize = size;
+  }
+  message.style.setProperty('--mailer-message-size', `${bestMessageSize}pt`);
+}
+
+export function findOverflow(mailerNode) {
+  return hasOverflow(mailerNode);
 }
 
 export function createPreviewFitter(previewNode, stageNode) {

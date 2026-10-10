@@ -10,6 +10,9 @@ export const rallyTemplate = {
   render(content, colorway) {
     const rendered = bannerTemplate.render(content, colorway);
     rendered.classList.add('rally');
+    if (colorway?.id === 'cream') {
+      rendered.style.setProperty('--mailer-surface', 'var(--brand-cream)');
+    }
     return rendered;
   },
 };

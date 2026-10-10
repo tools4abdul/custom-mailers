@@ -19,6 +19,10 @@ export function setIntroField(content, field, value) {
   return { ...content, intro: { ...content.intro, [field]: value } };
 }
 
+export function setPrintSetting(content, field, value) {
+  return { ...content, printSettings: { ...content.printSettings, [field]: value } };
+}
+
 export function setSupporterField(content, field, value) {
   return { ...content, supporter: { ...content.supporter, [field]: value } };
 }

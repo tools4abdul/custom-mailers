@@ -28,6 +28,9 @@ export function createEmptyContent() {
     intro: {
       message: DEFAULT_INTRO_MESSAGE,
     },
+    printSettings: {
+      safeMargin: false,
+    },
     supporter: {
       enabled: true,
       name: '',
@@ -77,6 +80,7 @@ export function normalizeContent(raw) {
 
   const candidate = raw.candidate ?? {};
   const intro = raw.intro ?? {};
+  const printSettings = raw.printSettings ?? {};
   const supporter = raw.supporter ?? {};
   const positions = Array.isArray(raw.positions) ? raw.positions.map(asPosition) : [];
 
@@ -89,6 +93,9 @@ export function normalizeContent(raw) {
     },
     intro: {
       message: typeof intro.message === 'string' && intro.message.trim() !== '' ? intro.message : DEFAULT_INTRO_MESSAGE,
+    },
+    printSettings: {
+      safeMargin: printSettings.safeMargin === true,
     },
     positions: positions.length === 0 ? defaults.positions : positions,
     supporter: {

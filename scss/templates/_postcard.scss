@@ -54,6 +54,22 @@
 .postcard__address-lines { display: grid; gap: .2in; margin-top: .55in; }
 .postcard__address-lines span { display: block; width: 100%; border-bottom: 1pt solid var(--brand-charcoal); }
 
+@media screen {
+  .mailer--printer-safe > .banner,
+  .mailer--printer-safe > .editorial {
+    position: absolute;
+    inset: .25in;
+    width: auto;
+    height: auto;
+  }
+
+  .mailer--printer-safe .postcard {
+    width: 5.5in;
+    height: 3.5in;
+    margin: .25in;
+  }
+}
+
 @media print {
   .mailer--postcard { width: 6in; height: auto; overflow: visible; }
   .mailer--postcard .postcard-set { display: block; }

@@ -73,6 +73,20 @@
     page: letter;
   }
 
+  .mailer--printer-safe > .banner,
+  .mailer--printer-safe > .editorial {
+    position: absolute;
+    inset: .25in;
+    width: auto;
+    height: auto;
+  }
+
+  .mailer--printer-safe .postcard {
+    width: 5.5in;
+    height: 3.5in;
+    margin: .25in;
+  }
+
   .mailer *,
   .mailer *::before,
   .mailer *::after {

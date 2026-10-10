@@ -207,7 +207,7 @@ export const bannerTemplate = {
     const { slots } = bannerTemplate;
     return el('div', { class: 'banner', style: colorwayStyle(colorway) }, [
       renderHeader(content, colorway),
-      el('main', { class: 'banner__body', 'data-auto-fit-container': true }, [
+    el('main', { class: 'banner__body', 'data-content-fit': true }, [
         renderIntroduction(content),
         renderPositions(content, slots),
       ]),

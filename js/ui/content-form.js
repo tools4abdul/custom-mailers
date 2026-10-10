@@ -3,7 +3,7 @@ import { createTextField, createCheckboxField, createFieldset } from './fields.j
 import { createPhotoInput } from './photo-input.js';
 import { createPhotoGallery } from './photo-gallery.js';
 import { createPositionsEditor } from './positions-editor.js';
-import { setCandidatePhotoId, setIntroField, setSupporterField } from '../state/updates.js';
+import { setCandidatePhotoId, setIntroField, setPrintSetting, setSupporterField } from '../state/updates.js';
 
 function candidateFieldset(store, slot) {
   return createFieldset('Abdul El-Sayed', [
@@ -83,6 +83,17 @@ function introFieldset(store, slot) {
   ]);
 }
 
+function printFieldset(store) {
+  return createFieldset('Printing', [
+    createCheckboxField({
+      id: 'printer-safe-margin',
+      label: 'Use a 0.25in printer-safe margin',
+      checked: store.getState().printSettings.safeMargin,
+      onChange: (safeMargin) => store.setState((current) => setPrintSetting(current, 'safeMargin', safeMargin)),
+    }),
+  ]);
+}
+
 export function renderContentForm(node, template, store) {
   if (template === null) {
     replace(node, el('p', { class: 'control-panel__empty', text: 'Choose a layout first.' }));
@@ -99,6 +110,8 @@ export function renderContentForm(node, template, store) {
   if (slots.intro !== undefined) {
     sections.push(introFieldset(store, slots.intro));
   }
+
+  sections.push(printFieldset(store));
 
   if (slots.positions !== undefined) {
     sections.push(createFieldset(slots.positions.label, [createPositionsEditor(store, slots.positions)]));
