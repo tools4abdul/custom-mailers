@@ -38,13 +38,21 @@ function renderPriority(position) {
   ]);
 }
 
+export function hasSelectedPostcardPriority(content) {
+  return content.positions.slice(0, 3).some((position) => getIssue(position.issueId) !== null);
+}
+
 function renderBack(content, colorway) {
   const logoId = resolveLogoId(colorway, content.logoId);
+  const hasSelectedPriority = hasSelectedPostcardPriority(content);
   return el('section', { class: 'postcard postcard__back', style: colorwayStyle(colorway), 'aria-label': 'Postcard back' }, [
     el('section', { class: 'postcard__message-side' }, [
       el('img', { class: 'postcard__logo', src: wideLogoSrc(logoId), alt: 'Abdul for U.S. Senate' }),
       el('h2', { class: 'postcard__title', text: 'My Reasons for Supporting Abdul' }),
-      el('ol', { class: 'postcard__priority-list', 'data-overflow-guard': true }, content.positions.slice(0, 3).map(renderPriority)),
+      el('ol', {
+        class: 'postcard__priority-list',
+        'data-overflow-guard': hasSelectedPriority ? true : null,
+      }, content.positions.slice(0, 3).map(renderPriority)),
     ]),
     el('section', { class: 'postcard__address-side', 'aria-label': 'Mailing address area' }, [
       el('div', { class: 'postcard__stamp-box', 'aria-label': 'Place stamp here' }, [
