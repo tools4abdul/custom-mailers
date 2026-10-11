@@ -4,6 +4,7 @@ import { getIssue, selectedPoints } from '../data/position-source.js';
 import { colorwayStyle, photoOrPlaceholder, textOrPlaceholder } from './render-helpers.js';
 import { wideLogoSrc, resolveLogoId } from './logos.js';
 import { bannerTemplate } from './banner.js';
+import { hasSelectedPosition } from '../state/content-model.js';
 
 function renderFront(content) {
   const photoId = content.candidate.photoId;
@@ -38,13 +39,9 @@ function renderPriority(position) {
   ]);
 }
 
-export function hasSelectedPostcardPriority(content) {
-  return content.positions.slice(0, 3).some((position) => getIssue(position.issueId) !== null);
-}
-
 function renderBack(content, colorway) {
   const logoId = resolveLogoId(colorway, content.logoId);
-  const hasSelectedPriority = hasSelectedPostcardPriority(content);
+  const hasSelectedPriority = hasSelectedPosition(content, 3);
   return el('section', { class: 'postcard postcard__back', style: colorwayStyle(colorway), 'aria-label': 'Postcard back' }, [
     el('section', { class: 'postcard__message-side' }, [
       el('img', { class: 'postcard__logo', src: wideLogoSrc(logoId), alt: 'Abdul for U.S. Senate' }),

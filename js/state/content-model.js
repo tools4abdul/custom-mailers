@@ -16,6 +16,10 @@ export function createPosition() {
   };
 }
 
+export function hasSelectedPosition(content, max = Infinity) {
+  return content.positions.slice(0, max).some((position) => position.issueId !== null);
+}
+
 export function createEmptyContent() {
   return {
     templateId: null,
