@@ -31,6 +31,7 @@
 .editorial__supporter { grid-column: 2; grid-row: 1 / span 2; width: .68in; height: .68in; overflow: hidden; border-radius: 50%; border: 2pt solid var(--mailer-footer-accent); }
 .editorial__supporter-image { width: 100%; height: 100%; object-fit: cover; }
 
+.rally { grid-template-rows: 2.1in minmax(0, 1fr) 1.9in; }
 .rally .banner__header { min-height: 2.1in; background: var(--mailer-header-accent); }
 .rally .banner__positions { padding-top: .18in; }
 .rally .banner__position-title { font-size: calc(22pt * var(--mailer-content-scale)); }
