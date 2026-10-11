@@ -8,6 +8,8 @@ import {
 } from '../js/state/content-model.js';
 import { candidatePhotos } from '../js/data/candidate-photos.js';
 import { editorialObjectPosition } from '../js/data/photo-source.js';
+import { positions } from '../js/data/position-source.js';
+import { hasSelectedPostcardPriority } from '../js/templates/postcard.js';
 
 test('starts a new mailer with the requested introduction and endorsement copy', () => {
   const content = createEmptyContent();
@@ -29,4 +31,12 @@ test('uses the supplied editorial crop positions in gallery order', () => {
   assert.equal(editorialObjectPosition(candidatePhotos[0].id), 'center 44%');
   assert.equal(editorialObjectPosition(candidatePhotos[20].id), 'center 7%');
   assert.equal(editorialObjectPosition(candidatePhotos[37].id), 'center 31%');
+});
+
+test('does not guard an empty postcard priority placeholder for overflow', () => {
+  const content = createEmptyContent();
+  assert.equal(hasSelectedPostcardPriority(content), false);
+
+  content.positions[0].issueId = positions[0].id;
+  assert.equal(hasSelectedPostcardPriority(content), true);
 });
